@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<root version="3.0" >
+
+	<properties>
+		<name>AD&#38;D Core, 1e Properties</name>
+		<version>1.0</version>
+		<loadorder>99</loadorder>
+		<description>
+			<text>1e Saves, Thaco and Ability properties.</text>
+			<website></website>
+			<author>Celestian</author>
+		</description>
+		<ruleset>
+            <name>AD&amp;D Core</name>
+		</ruleset>
+	</properties>
+
+	<base>		
+        <!-- High-level scripts -->
+        <script name="DataCommonADND" file="scripts/data_common_adnd.lua" />
+    </base>
+    
+</root>
