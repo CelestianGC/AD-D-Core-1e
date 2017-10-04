@@ -2,7 +2,9 @@
 -- 
 -- 
 --
-
+    -- what version of AD&D is this
+    coreVersion = "1e";
+    
     -- this index points to the location of this save
     -- in the aWarriorSaves, aPriestSaves, aWizardSaves, aRogueSaves
     -- We do this so we can split the saves up and give
@@ -346,5 +348,48 @@ function onInit()
     aRogueSaves[19] = {9,6,8,12,7};
     aRogueSaves[20] = {9,6,8,12,7};
     aRogueSaves[21] = {8,4,7,11,5};
+    
+   
+    -- default turn dice size 
+	nDefaultTurnDice = {"d20"};
+    nDefaultTurnUndeadMaxHD = 13;
+    -- index of the turns 1-13
+    turn_name_index ={ 
+        "Skeleton or 1HD",
+        "Zombie",
+        "Ghoul or 2HD",
+        "Shadow or 3-4 HD",
+        "Wight or 5HD",
+        "Ghast",
+        "Wraith or 6HD",
+        "Mummy or 7HD",
+        "Spectre or 8HD",
+        "Vampire or 9HD",
+        "Ghost or 10 HD",
+        "Lich or 11+ HD",
+        "Special++"
+    };
+    
+    -- cap of turn improvement
+    nDefaultTurnUndeadMaxLevel = 14;
+
+    --  0 = Cannot turn
+    -- -1 = Turn
+    -- -2 = Disentigrate
+    -- -3 = Additional 2d4 creatures effected.
+    aTurnUndead[1] =  {10,13,16,19,20,0,0,0,0,0,0,0,0};
+    aTurnUndead[2] =  {7,10,13,16,19,20,0,0,0,0,0,0,0};
+    aTurnUndead[3] =  {4,7,10,13,16,19,20,0,0,0,0,0,0};
+    aTurnUndead[4] =  {-1,4,7,10,13,16,19,20,0,0,0,0,0};
+    aTurnUndead[5] =  {-1,-1,4,7,10,13,16,19,20,0,0,0,0};
+    aTurnUndead[6] =  {-2,-1,-1,4,7,10,13,16,19,20,0,0,0};
+    aTurnUndead[7] =  {-2,-2,-1,-1,4,7,10,13,16,19,20,0,0};
+    aTurnUndead[8] =  {-3,-2,-2,-1,-1,4,7,10,13,16,19,20,0};
+    aTurnUndead[9] =  {-3,-3,-2,-2,-1,-1,4,7,10,13,16,19,20};
+    aTurnUndead[10] = {-3,-3,-3,-2,-2,-1,-1,4,7,10,13,16,19};
+    aTurnUndead[11] = {-3,-3,-3,-2,-2,-1,-1,4,7,10,13,16,19};
+    aTurnUndead[12] = {-3,-3,-3,-3,-2,-2,-1,-1,4,7,10,13,16};
+    aTurnUndead[13] = {-3,-3,-3,-3,-2,-2,-1,-1,4,7,10,13,16};
+    aTurnUndead[14] = {-3,-3,-3,-3,-3,-2,-2,-1,-1,4,7,10,13};    
     
 end
