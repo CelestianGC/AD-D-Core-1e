@@ -3,8 +3,8 @@
 <root version="3.0" >
 
 	<properties>
-		<name>AD&#38;D Core, 1e Properties</name>
-		<version>1.0</version>
+		<name>AD&#38;D Core - 1e Properties</name>
+		<version>1.2</version>
 		<loadorder>99</loadorder>
 		<description>
 			<text>1e Saves, Thaco and Ability properties.</text>
@@ -16,8 +16,7 @@
 		</ruleset>
 	</properties>
 
-	<announcement text="AD&amp;D Core 1e Properties Extension. v2017.04.26\rFor Fantasy Grounds" font="emotefont" icon="rulesetlogo_ADnD" />
-
+	<announcement text="AD&amp;D Core 1e Properties - Extension, AD&amp;D Core version.\r--by Celestian 2017.04.26" font="emotefont" icon="rulesetlogo_ADnD" />
 	<base>		
         <!-- High-level scripts -->
         <script name="DataCommonADND" file="scripts/data_common_adnd.lua" />

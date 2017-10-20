@@ -56,9 +56,39 @@
     aCharisma = {};
     aIntelligence = {};
     
+    
+    -- turn undead, cleric
+    aTurnUndead = {};
+    
     -- distance per unit grid, this is for reach? --celestian
     nDefaultDistancePerUnitGrid = 10;
     
+    -- used in effects to denote that these types of modifiers are not added up
+    -- and to use the "best" (highest) one.
+    basetypes = {
+        "BSTR",
+        "BDEX",
+        "BINT",
+        "BCHA",
+        "BCON",
+        "BWIS",
+        "BPSTR",
+        "BPDEX",
+        "BPINT",
+        "BPCHA",
+        "BPCON",
+        "BPWIS",
+        "BAC",
+    };
+    
+    -- these class get con bonus to hp
+    fighterTypes = {
+        "fighter",
+        "ranger",
+        "paladin",
+        "barbarian",        
+    };
+        
 function onInit()
     -- default initiative dice size 
 	nDefaultInitiativeDice = 6;
