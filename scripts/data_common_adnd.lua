@@ -26,28 +26,6 @@
         ["breath"] = 4,
         ["spell"] = 5
     };
-
-    aWarriorSaves = {};
-    aPriestSaves = {};
-    aWizardSaves = {};
-    aRogueSaves = {};
-
-    -- every 3 levels get improvement of 2 thaco
-    thaco_priest_rate = 3;
-    thaco_priest_advancement = 2;
-    
-    -- every 1 level get improvement of 1 thaco
-    thaco_warrior_rate = 1;
-    thaco_warrior_advancement = 1;
-
-    -- every 2 levels get improvement of 1 thaco
-    thaco_rogue_rate = 2;
-    thaco_rogue_advancement = 1;
-    
-    -- every 3 levels get improvement of 1 thaco
-    thaco_wizard_rate = 3;
-    thaco_wizard_advancement = 1;
-
     -- ability scores 
     aStrength = {};
     aDexterity = {};
@@ -66,20 +44,32 @@
     -- used in effects to denote that these types of modifiers are not added up
     -- and to use the "best" (highest) one.
     basetypes = {
-        "BSTR",
-        "BDEX",
-        "BINT",
-        "BCHA",
-        "BCON",
-        "BWIS",
-        "BPSTR",
-        "BPDEX",
-        "BPINT",
-        "BPCHA",
-        "BPCON",
-        "BPWIS",
-        "BAC",
+      "BSTR",
+      "BDEX",
+      "BINT",
+      "BCHA",
+      "BCON",
+      "BWIS",
+      "BPSTR",
+      "BPDEX",
+      "BPINT",
+      "BPCHA",
+      "BPCON",
+      "BPWIS",
     };
+    
+    -- base effect, take LOWEST (low AC is good remember)
+    lowtypes = {
+      "BAC",      -- base AC
+      "BRANGEAC", -- base ranged AC (attack is via range)
+      "BMELEEAC", -- base melee AC
+      "BMAC",     -- base mental AC
+    };
+    
+    -- also added these effect tags
+    --"TURN",
+    --"TURNLEVEL",
+    --"SURPRISE",
     
     -- these class get con bonus to hp
     fighterTypes = {
@@ -90,12 +80,27 @@
     };
         
 function onInit()
+  local sRulesetName = User.getRulesetName();
+  
     -- default initiative dice size 
 	nDefaultInitiativeDice = 6;
     -- default coin weight, 10 coins = 1 pound, 1e, ouch
     nDefaultCoinWeight = 0.1;
-    
-
+  -- default surprise dice
+  if (sRulesetName == "SW" or sRulesetName == "2E") then
+    aDefaultSurpriseDice = {"d10"};
+  else
+    aDefaultSurpriseDice = {"d6"};
+  end
+  
+  -- EXP % bonus for classes with them
+  if (sRulesetName == "SW") then
+    -- 5%
+    nDefaultEXPBonus = 0.5;
+  else
+    -- everything else 10%
+    nDefaultEXPBonus = 0.10;
+  end
     -- aStrength[abilityScore]={hit adj, dam adj, weight allow, max press, open doors, bend bars}
     aStrength[1]  = {-3,-1,-350,0,"1(0)",0,2,3,4,5,7};
     aStrength[2]  = {-3,-1,-350,0,"1(0)",0,2,3,4,5,7};
@@ -281,145 +286,106 @@ function onInit()
     aIntelligence[124]  =   {7, 16,100,"All","Level: 1st, 2nd, 3rd, 4th, 5th, 6th"};
     aIntelligence[125]  =   {7, 17,100,"All","Level: 1st, 2nd, 3rd, 4th, 5th, 6th, 7th"};
 
-
-
-                      -- Death, Rod, Poly, Breath, Spell
-    aWarriorSaves[0]  = {16,18,17,20,19};
-    aWarriorSaves[1]  = {14,16,15,17,17};
-    aWarriorSaves[2]  = {14,16,15,17,17};
-    aWarriorSaves[3]  = {13,15,14,16,16};
-    aWarriorSaves[4]  = {13,15,14,16,16};
-    aWarriorSaves[5]  = {11,13,12,13,14};
-    aWarriorSaves[6]  = {11,13,12,13,14};
-    aWarriorSaves[7]  = {10,12,11,12,13};
-    aWarriorSaves[8]  = {10,12,11,12,13};
-    aWarriorSaves[9]  = {8,10,9,9,11};
-    aWarriorSaves[10] = {8,10,9,9,11};
-    aWarriorSaves[11] = {7,9,8,8,10};
-    aWarriorSaves[12] = {7,9,8,8,10};
-    aWarriorSaves[13] = {5,7,6,5,8};
-    aWarriorSaves[14] = {5,7,6,5,8};
-    aWarriorSaves[15] = {4,6,5,4,7};
-    aWarriorSaves[16] = {4,6,5,4,7};
-    aWarriorSaves[17] = {3,5,4,4,6};
-    aWarriorSaves[18] = {3,5,4,4,6};
-    aWarriorSaves[19] = {3,5,4,4,6};
-    aWarriorSaves[20] = {3,5,4,4,6};
-    aWarriorSaves[21] = {3,5,4,4,6};
-
-                     -- Death, Rod, Poly, Breath, Spell
-    aPriestSaves[0]  = {10,14,13,16,15};
-    aPriestSaves[1]  = {10,14,13,16,15};
-    aPriestSaves[2]  = {10,14,13,16,15};
-    aPriestSaves[3]  = {10,14,13,16,15};
-    aPriestSaves[4]  = {9,13,12,15,14};
-    aPriestSaves[5]  = {9,13,12,15,14};
-    aPriestSaves[6]  = {9,13,12,15,14};
-    aPriestSaves[7]  = {7,11,10,13,12};
-    aPriestSaves[8]  = {7,11,10,13,12};
-    aPriestSaves[9]  = {7,11,10,13,12};
-    aPriestSaves[10] = {6,10,9,12,11};
-    aPriestSaves[11] = {6,10,9,12,11};
-    aPriestSaves[12] = {6,10,9,12,11};
-    aPriestSaves[13] = {5,9,8,11,10};
-    aPriestSaves[14] = {5,9,8,11,10};
-    aPriestSaves[15] = {5,9,8,11,10};
-    aPriestSaves[16] = {4,8,7,10,9};
-    aPriestSaves[17] = {4,8,7,10,9};
-    aPriestSaves[18] = {4,8,7,10,9};
-    aPriestSaves[19] = {2,6,5,8,7};
-    aPriestSaves[20] = {2,6,5,8,7};
-    aPriestSaves[21] = {2,6,5,8,7};
-
-                     -- Death, Rod, Poly, Breath, Spell
-    aWizardSaves[0]  = {14,11,13,15,12};
-    aWizardSaves[1]  = {14,11,13,15,12};
-    aWizardSaves[2]  = {14,11,13,15,12};
-    aWizardSaves[3]  = {14,11,13,15,12};
-    aWizardSaves[4]  = {14,11,13,15,12};
-    aWizardSaves[5]  = {14,11,13,15,12};
-    aWizardSaves[6]  = {13,9,11,13,10};
-    aWizardSaves[7]  = {13,9,11,13,10};
-    aWizardSaves[8]  = {13,9,11,13,10};
-    aWizardSaves[9]  = {13,9,11,13,10};
-    aWizardSaves[10] = {13,9,11,13,10};
-    aWizardSaves[11] = {11,7,9,11,8};
-    aWizardSaves[12] = {11,7,9,11,8};
-    aWizardSaves[13] = {11,7,9,11,8};
-    aWizardSaves[14] = {11,7,9,11,8};
-    aWizardSaves[15] = {11,7,9,11,8};
-    aWizardSaves[16] = {10,5,7,9,6};
-    aWizardSaves[17] = {10,5,7,9,6};
-    aWizardSaves[18] = {10,5,7,9,6};
-    aWizardSaves[19] = {10,5,7,9,6};
-    aWizardSaves[20] = {10,5,7,9,6};
-    aWizardSaves[21] = {8,3,5,7,4};
-
-                    -- Death, Rod, Poly, Breath, Spell
-    aRogueSaves[0]  = {13,14,12,16,15};
-    aRogueSaves[1]  = {13,14,12,16,15};
-    aRogueSaves[2]  = {13,14,12,16,15};
-    aRogueSaves[3]  = {13,14,12,16,15};
-    aRogueSaves[4]  = {13,14,12,16,15};
-    aRogueSaves[5]  = {12,12,11,15,12};
-    aRogueSaves[6]  = {12,12,11,15,12};
-    aRogueSaves[7]  = {12,12,11,15,12};
-    aRogueSaves[8]  = {12,12,11,15,12};
-    aRogueSaves[9]  = {11,10,10,14,11};
-    aRogueSaves[10] = {11,10,10,14,11};
-    aRogueSaves[11] = {11,10,10,14,11};
-    aRogueSaves[12] = {11,10,10,14,11};
-    aRogueSaves[13] = {10,8,9,13,9};
-    aRogueSaves[14] = {10,8,9,13,9};
-    aRogueSaves[15] = {10,8,9,13,9};
-    aRogueSaves[16] = {10,8,9,13,9};
-    aRogueSaves[17] = {9,6,8,12,7};
-    aRogueSaves[18] = {9,6,8,12,7};
-    aRogueSaves[19] = {9,6,8,12,7};
-    aRogueSaves[20] = {9,6,8,12,7};
-    aRogueSaves[21] = {8,4,7,11,5};
-    
-   
     -- default turn dice size 
-	nDefaultTurnDice = {"d20"};
-    nDefaultTurnUndeadMaxHD = 13;
-    -- index of the turns 1-13
-    turn_name_index ={ 
-        "Skeleton or 1HD",
-        "Zombie",
-        "Ghoul or 2HD",
-        "Shadow or 3-4 HD",
-        "Wight or 5HD",
-        "Ghast",
-        "Wraith or 6HD",
-        "Mummy or 7HD",
-        "Spectre or 8HD",
-        "Vampire or 9HD",
-        "Ghost or 10 HD",
-        "Lich or 11+ HD",
-        "Special++"
-    };
+  nDefaultTurnDice = {"d20"};
+  nDefaultTurnUndeadMaxHD = 13; -- this is actually the number of turn_name_index entries
+  -- index of the turns 1-13
+  turn_name_index ={      -- make sure the HD listing is XXHD or X-XHD, 
+      "Skeleton or 1HD",  -- we need the number it from of HD for the 
+      "Zombie or 1-2HD",  -- turn undead automation.
+      "Ghoul or 2HD",
+      "Shadow or 3-4HD",
+      "Wight or 5HD",
+      "Ghast or 5-6HD",
+      "Wraith or 6HD",
+      "Mummy or 7HD",
+      "Spectre or 8HD",
+      "Vampire or 9HD",
+      "Ghost or 10HD",
+      "Lich or 11-15HD+", -- 11++ doesn't work so I added 11-15 so the max HD is 15 this will work on
+      "Special 20HD++"    -- "special" doesn't translate so added 20+ HD
+  };
     
-    -- cap of turn improvement
-    nDefaultTurnUndeadMaxLevel = 14;
+  -- cap of turn improvement
+  nDefaultTurnUndeadMaxLevel = 14;
 
-    --  0 = Cannot turn
-    -- -1 = Turn
-    -- -2 = Disentigrate
-    -- -3 = Additional 2d4 creatures effected.
-    aTurnUndead[1] =  {10,13,16,19,20,0,0,0,0,0,0,0,0};
-    aTurnUndead[2] =  {7,10,13,16,19,20,0,0,0,0,0,0,0};
-    aTurnUndead[3] =  {4,7,10,13,16,19,20,0,0,0,0,0,0};
-    aTurnUndead[4] =  {-1,4,7,10,13,16,19,20,0,0,0,0,0};
-    aTurnUndead[5] =  {-1,-1,4,7,10,13,16,19,20,0,0,0,0};
-    aTurnUndead[6] =  {-2,-1,-1,4,7,10,13,16,19,20,0,0,0};
-    aTurnUndead[7] =  {-2,-2,-1,-1,4,7,10,13,16,19,20,0,0};
-    aTurnUndead[8] =  {-3,-2,-2,-1,-1,4,7,10,13,16,19,20,0};
-    aTurnUndead[9] =  {-3,-3,-2,-2,-1,-1,4,7,10,13,16,19,20};
-    aTurnUndead[10] = {-3,-3,-3,-2,-2,-1,-1,4,7,10,13,16,19};
-    aTurnUndead[11] = {-3,-3,-3,-2,-2,-1,-1,4,7,10,13,16,19};
-    aTurnUndead[12] = {-3,-3,-3,-3,-2,-2,-1,-1,4,7,10,13,16};
-    aTurnUndead[13] = {-3,-3,-3,-3,-2,-2,-1,-1,4,7,10,13,16};
-    aTurnUndead[14] = {-3,-3,-3,-3,-3,-2,-2,-1,-1,4,7,10,13};    
+  --  0 = Cannot turn
+  -- -1 = Turn
+  -- -2 = Disentigrate
+  -- -3 = Additional 2d4 creatures effected.
+  aTurnUndead[1] =  {10,13,16,19,20,0,0,0,0,0,0,0,0};
+  aTurnUndead[2] =  {7,10,13,16,19,20,0,0,0,0,0,0,0};
+  aTurnUndead[3] =  {4,7,10,13,16,19,20,0,0,0,0,0,0};
+  aTurnUndead[4] =  {-1,4,7,10,13,16,19,20,0,0,0,0,0};
+  aTurnUndead[5] =  {-1,-1,4,7,10,13,16,19,20,0,0,0,0};
+  aTurnUndead[6] =  {-2,-1,-1,4,7,10,13,16,19,20,0,0,0};
+  aTurnUndead[7] =  {-2,-2,-1,-1,4,7,10,13,16,19,20,0,0};
+  aTurnUndead[8] =  {-3,-2,-2,-1,-1,4,7,10,13,16,19,20,0};
+  aTurnUndead[9] =  {-3,-3,-2,-2,-1,-1,4,7,10,13,16,19,20};
+  aTurnUndead[10] = {-3,-3,-3,-2,-2,-1,-1,4,7,10,13,16,19};
+  aTurnUndead[11] = {-3,-3,-3,-2,-2,-1,-1,4,7,10,13,16,19};
+  aTurnUndead[12] = {-3,-3,-3,-3,-2,-2,-1,-1,4,7,10,13,16};
+  aTurnUndead[13] = {-3,-3,-3,-3,-2,-2,-1,-1,4,7,10,13,16};
+  aTurnUndead[14] = {-3,-3,-3,-3,-3,-2,-2,-1,-1,4,7,10,13};
+
+  -- this needs to stick around for NPC save values
+  -- since they use the warrior table
+  -- Death, Rod, Poly, Breath, Spell
+  aWarriorSaves[0]  = {16,18,17,20,19};
+  aWarriorSaves[1]  = {14,16,15,17,17};
+  aWarriorSaves[2]  = {14,16,15,17,17};
+  aWarriorSaves[3]  = {13,15,14,16,16};
+  aWarriorSaves[4]  = {13,15,14,16,16};
+  aWarriorSaves[5]  = {11,13,12,13,14};
+  aWarriorSaves[6]  = {11,13,12,13,14};
+  aWarriorSaves[7]  = {10,12,11,12,13};
+  aWarriorSaves[8]  = {10,12,11,12,13};
+  aWarriorSaves[9]  = {8,10,9,9,11};
+  aWarriorSaves[10] = {8,10,9,9,11};
+  aWarriorSaves[11] = {7,9,8,8,10};
+  aWarriorSaves[12] = {7,9,8,8,10};
+  aWarriorSaves[13] = {5,7,6,5,8};
+  aWarriorSaves[14] = {5,7,6,5,8};
+  aWarriorSaves[15] = {4,6,5,4,7};
+  aWarriorSaves[16] = {4,6,5,4,7};
+  aWarriorSaves[17] = {3,5,4,4,6};
+  aWarriorSaves[18] = {3,5,4,4,6};
+  aWarriorSaves[19] = {3,5,4,4,6};
+  aWarriorSaves[20] = {3,5,4,4,6};
+  aWarriorSaves[21] = {3,5,4,4,6};
     
+ -- matrix style hit table for monsters
+-- AC 10 .. -10  
+-- -1      = 11,12,13,14,15,16,17,18,19,20,20,20,20,20,20,21,22,23,24,25,26 
+ -- 0      = 10,11,12,13,14,15,16,17,18,19,20,20,20,20,20,20,21,22,23,24,25
+ -- 1      = 9,10,11,12,13,14,15,16,17,18,19,20,20,20,20,20,20,21,22,23,24
+ -- 1+     = 8,9,10,11,12,13,14,15,16,17,18,19,20,20,20,20,20,20,21,22,23
+ -- 2-3+   = 6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,20,20,20,20,20,21
+ -- 4-5+   = 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,20,20,20,20,20
+ -- 6-7+   = 3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,20,20,20
+ -- 8-9+   = 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,20,20
+ -- 10-11+ = 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
+ -- 12-13+ = -1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19
+ -- 14-15+ = -2,-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18
+ -- 16+    = -3,-2,-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17
+
+ aMatrix['-1']  = {11,12,13,14,15,16,17,18,19,20,20,20,20,20,20,21,22,23,24,25,26}; -- below 1-1
+ aMatrix['1-1'] = {10,11,12,13,14,15,16,17,18,19,20,20,20,20,20,20,21,22,23,24,25}; -- 1-1
+ aMatrix['1']   = {9,10,11,12,13,14,15,16,17,18,19,20,20,20,20,20,20,21,22,23,24};  
+ aMatrix['1+']  = {8,9,10,11,12,13,14,15,16,17,18,19,20,20,20,20,20,20,21,22,23};   -- 1+X
+ aMatrix['2']   = {6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,20,20,20,20,20,21};
+ aMatrix['3']   = {6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,20,20,20,20,20,21};
+ aMatrix['4']   = {5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,20,20,20,20,20};
+ aMatrix['5']   = {5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,20,20,20,20,20};
+ aMatrix['6']   = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,20,20,20};
+ aMatrix['7']   = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,20,20,20};
+ aMatrix['8']   = {2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,20,20};
+ aMatrix['9']   = {2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,20,20};
+ aMatrix['10']  = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
+ aMatrix['11']  = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
+ aMatrix['12']  = {-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
+ aMatrix['13']  = {-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
+ aMatrix['14']  = {-2,-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18};
+ aMatrix['15']  = {-2,-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18};
+ aMatrix['16']  = {-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17};    
 end
