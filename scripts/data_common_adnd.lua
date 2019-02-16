@@ -34,9 +34,13 @@
     aCharisma = {};
     aIntelligence = {};
     
-    
     -- turn undead, cleric
     aTurnUndead = {};
+
+    -- required for npcs, base save table
+    aWarriorSaves = {};
+    -- required for npcs, hit matrix when used
+    aMatrix = {};
     
     -- distance per unit grid, this is for reach? --celestian
     nDefaultDistancePerUnitGrid = 10;
@@ -79,6 +83,32 @@
         "barbarian",        
     };
         
+  -- Item records, type fields    
+  itemTypes = {
+    "",
+    "Ammunition",
+    "Armor",
+    "Art",
+    "Clothing",
+    "Gear",
+    "Gem",
+    "Jewelry",
+    "Magic",
+    "Provisions",
+    "Weapon",
+    "Other",
+  }
+  itemSubTypes = itemTypes;
+  itemRarity = {
+    "",
+    "Common",
+    "Uncommon",
+    "Rare",
+    "Very Rare",
+    "Unique",
+    "Other"
+  }
+          
 function onInit()
   local sRulesetName = User.getRulesetName();
   

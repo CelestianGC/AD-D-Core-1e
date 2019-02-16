@@ -2,22 +2,29 @@
 
 <root version="3.0" >
 
-	<properties>
-		<name>AD&#38;D Core - 1E Properties</name>
-		<version>1.3</version>
-		<loadorder>99</loadorder>
-		<description>
-			<text>1E Saves, Thaco and Ability properties.</text>
-			<website></website>
-			<author>Celestian</author>
-		</description>
-		<ruleset>
+  <properties>
+    <name>AD&#38;D Core - 1E Properties</name>
+    <version>1.6</version>
+    <loadorder>99</loadorder>
+    <description>
+      <text>1E Saves, Thaco and Ability properties.</text>
+      <website></website>
+      <author>Celestian</author>
+    </description>
+    <ruleset>
       <name>AD&amp;D Core</name>
-		</ruleset>
-	</properties>
+<!--       <maxrelease>28</maxrelease>
+      <minrelease>25</minrelease> -->
+    </ruleset>
+    <ruleset>
+      <name>2E</name>
+<!--       <maxrelease>28</maxrelease>
+      <minrelease>25</minrelease> -->
+    </ruleset>
+  </properties>
 
-	<announcement text="AD&amp;D Core 1E Properties - Extension, AD&amp;D Core version.\r--by Celestian 2017.04.26" font="emotefont" icon="rulesetlogo_ADnD" />
-	<base>		
+  <announcement text="AD&amp;D Core 1E Properties v1.6, AD&amp;D Core version.\r--by Celestian 2017.04.26" font="emotefont" icon="rulesetlogo_ADnD" />
+  <base>    
     <!-- High-level scripts -->
     <script name="DataCommonADND" file="scripts/data_common_adnd.lua" />
   </base>
