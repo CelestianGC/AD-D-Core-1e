@@ -83,31 +83,40 @@
         "barbarian",        
     };
         
-  -- Item records, type fields    
-  itemTypes = {
-    "",
-    "Ammunition",
-    "Armor",
-    "Art",
-    "Clothing",
-    "Gear",
-    "Gem",
-    "Jewelry",
-    "Magic",
-    "Provisions",
-    "Weapon",
-    "Other",
-  }
-  itemSubTypes = itemTypes;
-  itemRarity = {
-    "",
-    "Common",
-    "Uncommon",
-    "Rare",
-    "Very Rare",
-    "Unique",
-    "Other"
-  }
+-- Item records, type fields    
+itemTypes = {
+  "",
+  "Ammunition",
+  "Armor",
+  "Art",
+  "Clothing",
+  "Cloak",
+  "Gear",
+  "Gem",
+  "Jewelry",
+  "Magic",
+  "Potion",
+  "Provisions",
+  "Ring",
+  "Robe",
+  "Rod",
+  "Scroll",
+  "Staff",
+  "Shield",
+  "Wand",
+  "Weapon",
+  "Other",
+}
+itemSubTypes = itemTypes;
+itemRarity = {
+  "",
+  "Common",
+  "Uncommon",
+  "Rare",
+  "Very Rare",
+  "Unique",
+  "Other"
+}
           
 function onInit()
   local sRulesetName = User.getRulesetName();
