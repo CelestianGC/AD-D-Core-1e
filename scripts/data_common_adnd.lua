@@ -117,7 +117,35 @@ itemRarity = {
   "Unique",
   "Other"
 }
-          
+
+itemArmorTypes = {
+  "armor",
+}
+itemShieldArmorTypes = {
+  "shield",
+}
+itemOtherArmorTypes = {
+  "ring",
+  "cloak",
+  "robe"
+}
+
+arcaneSpellClasses = {
+  "arcane",
+  "wizard",
+  "bard",
+  "sorcerer",
+  "mage",
+  "magic-user",
+}
+divineSpellClasses = {
+  "divine",
+  "cleric",
+  "druid",
+  "paladin",
+  "ranger",
+}
+
 function onInit()
   local sRulesetName = User.getRulesetName();
   
