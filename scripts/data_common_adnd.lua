@@ -91,6 +91,7 @@ itemTypes = {
   "Art",
   "Clothing",
   "Cloak",
+  "Container",
   "Gear",
   "Gem",
   "Jewelry",

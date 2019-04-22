@@ -4,7 +4,7 @@
 
   <properties>
     <name>AD&#38;D Core - 1E Properties</name>
-    <version>1.8</version>
+    <version>1.9</version>
     <loadorder>99</loadorder>
     <description>
       <text>1E Saves, Thaco and Ability properties.</text>
@@ -23,7 +23,7 @@
     </ruleset>
   </properties>
 
-  <announcement text="AD&amp;D Core 1E Properties v1.8, AD&amp;D Core version.\r--by Celestian 2017.04.26" font="emotefont" icon="rulesetlogo_ADnD" />
+  <announcement text="AD&amp;D Core 1E Properties v1.9, AD&amp;D Core version.\r--by Celestian 2017-2019" font="emotefont" icon="rulesetlogo_ADnD" />
   <base>    
     <!-- High-level scripts -->
     <script name="DataCommonADND" file="scripts/data_common_adnd.lua" />
