@@ -86,12 +86,16 @@
 -- Item records, type fields    
 itemTypes = {
   "",
+  "Alchemical",
   "Ammunition",
+  "Animal",
   "Armor",
   "Art",
   "Clothing",
   "Cloak",
   "Container",
+  "Daily Food and Lodging",
+  "Equipment Packs",
   "Gear",
   "Gem",
   "Jewelry",
@@ -101,13 +105,19 @@ itemTypes = {
   "Ring",
   "Robe",
   "Rod",
+  "Service",
   "Scroll",
   "Staff",
   "Shield",
+  "Herb or Spice",
+  "Tack and Harness",
+  "Tool",
+  "Transport",
   "Wand",
   "Weapon",
   "Other",
 }
+
 itemSubTypes = itemTypes;
 itemRarity = {
   "",
