@@ -110,8 +110,8 @@ function onInit()
   aWisdom[13]  =    { 0, "1x1", 0, "None"};
   aWisdom[14]  =    { 0, "2x1", 0, "None"};
   aWisdom[15]  =    { 1, "2x1,1x2", 0, "None"};
-  aWisdom[16]  =    { 2, "2x2,2x2", 0, "None"};
-  aWisdom[17]  =    { 3, "2x2,2x2,1x3", 0, "None"};
+  aWisdom[16]  =    { 2, "2x1,2x2", 0, "None"};
+  aWisdom[17]  =    { 3, "2x1,2x2,1x3", 0, "None"};
   aWisdom[18]  =    { 4, "Various", 0, "None"};
   aWisdom[19]  =    { 4, "Various", 0, "Various"};
   aWisdom[20]  =    { 4, "Various", 0, "Various"};
@@ -121,6 +121,7 @@ function onInit()
   aWisdom[24]  =    { 4, "Various", 0, "Various"};
   aWisdom[25]  =    { 4, "Various", 0, "Various"};
   -- deal with long string bonus for tooltip
+  aWisdom[117]  =    { 4, "Bonus Spells: 2x1,2x2,1x3", 0, "None"};
   aWisdom[118]  =    { 4, "Bonus Spells: 2x1st, 2x2nd, 1x3rd, 1x4th", 0, "None"};
   aWisdom[119]  =    { 4, "Bonus Spells: 3x1st, 2x2nd, 1x3rd, 2x4th", 0, "Spells: cause fear,charm person, command, friends, hypnotism"};
   aWisdom[120]  =    { 4, "Bonus Spells: 3x1st, 3x2nd, 1x3rd, 3x4th", 0, "Spells: cause fear,charm person, command, friends, hypnotism, forget, hold person, enfeeble, scare"};

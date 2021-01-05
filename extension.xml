@@ -4,7 +4,7 @@
 
   <properties>
     <name>2E - 1E Properties</name>
-    <version>1.2</version>
+    <version>1.3</version>
     <loadorder>99</loadorder>
     <description>
       <text>1E Saves, Matrix and Ability properties.</text>
@@ -18,7 +18,7 @@
     </ruleset>
   </properties>
 
-  <announcement text="AD&amp;D 1E Properties v1.2, AD&amp;D 2E version.\r--by Celestian 2017-2020" font="emotefont" icon="rulesetlogo_DungeonClassic" />
+  <announcement text="AD&amp;D 1E Properties v1.3, AD&amp;D 2E version.\r--by Celestian 2017-2021" font="emotefont" icon="rulesetlogo_DungeonClassic" />
   <base>    
     <!-- High-level scripts -->
     <script name="DataCommonADND1e" file="scripts/data_common_adnd1e.lua" />
